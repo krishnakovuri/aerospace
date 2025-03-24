@@ -1,158 +1,138 @@
-# Place a copy of this config to ~/.aerospace.toml
-# After that, you can edit ~/.aerospace.toml to your liking
+# Configuration for application behavior and key bindings
 
-# It's not necessary to copy all keys to your config.
-# If the key is missing in your config, "default-config.toml" will serve as a fallback
-
-# You can use it to add commands that run after login to macOS user session.
-# 'start-at-login' needs to be 'true' for 'after-login-command' to work
-# Available commands: https://nikitabobko.github.io/AeroSpace/commands
+# Commands to execute after logging in
 after-login-command = []
 
-# You can use it to add commands that run after AeroSpace startup.
-# 'after-startup-command' is run after 'after-login-command'
-# Available commands : https://nikitabobko.github.io/AeroSpace/commands
+# Commands to execute after startup
+# This sets border colors and width for active and inactive windows
 after-startup-command = []
 
-# Start AeroSpace at login
+# Enable starting the application at login
 start-at-login = true
 
-# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+# Enable normalization features for container layouts
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
-# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
-# The 'accordion-padding' specifies the size of accordion padding
-# You can set 0 to disable the padding feature
-accordion-padding = 30
+# Padding for accordion layout
+accordion-padding = 15
 
-# Possible values: tiles|accordion
+# Default layout and orientation for root containers
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 
-# Possible values: (qwerty|dvorak)
-# See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
-key-mapping.preset = 'qwerty'
-
-# Mouse follows focus when focused monitor changes
-# Drop it from your config, if you don't like this behavior
-# See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
-# See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
+# Commands triggered by monitor or focus changes
+# Centers the mouse on the focused monitor or window
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-on-focus-changed = "move-mouse window-lazy-center"
+on-focus-changed = 'move-mouse window-lazy-center'
 
-# Gaps between windows (inner-*) and between monitor edges (outer-*).
-# Possible values:
-# - Constant:     gaps.outer.top = 8
-# - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
-#                 In this example, 24 is a default value when there is no match.
-#                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
-#                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+# Automatically unhide macOS hidden applications
+automatically-unhide-macos-hidden-apps = false
+
+# Key mapping configuration
+[key-mapping]
+preset = 'qwerty'
+
+# Gap settings for window layouts
 [gaps]
-inner.horizontal = 10
-inner.vertical =   10
-outer.left =       10
-outer.bottom =     10
-outer.top =        10
-outer.right =      10
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 8
+outer.bottom = 8
+outer.top = 8
+outer.right = 8
 
-# 'main' binding mode declaration
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
-# 'main' binding mode must be always presented
+# Environment variables for executed commands
+[exec]
+inherit-env-vars = true
+[exec.env-vars]
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
+
+# Main key bindings for common actions
 [mode.main.binding]
+alt-comma = 'layout accordion horizontal vertical'  # Change layout to accordion or horizontal/vertical
+alt-slash = 'layout tiles horizontal vertical'  # Change layout to tiles or horizontal/vertical
 
-# All possible keys:
-# - Letters.        a, b, c, ..., z
-# - Numbers.        0, 1, 2, ..., 9
-# - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
-# - F-keys.         f1, f2, ..., f20
-# - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon, backtick,
-#                   leftSquareBracket, rightSquareBracket, space, enter, esc, backspace, tab
-# - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
-#                   keypadMinus, keypadMultiply, keypadPlus
-# - Arrows.         left, down, up, right
+alt-f = 'fullscreen'  # Toggle fullscreen mode
 
-# All possible modifiers: cmd, alt, ctrl, shift
+cmd-left = 'workspace --wrap-around prev'  # Switch to the previous workspace
+cmd-right = 'workspace --wrap-around next'  # Switch to the next workspace
+# cmd-shift-c = 'reload-config'  # Reload configuration file
 
-# All possible commands: https://nikitabobko.github.io/AeroSpace/commands
+# cmd-shift-f = 'layout floating tiling'  # Toggle between floating and tiling layouts
 
-# You can uncomment this line to open up terminal with alt + enter shortcut
-# See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-# alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#layout
-alt-slash = 'layout tiles horizontal vertical'
-alt-comma = 'layout accordion horizontal vertical'
+# ENTER MODES
+cmd-shift-semicolon = 'mode service'  # Enter service mode
+cmd-shift-r = 'mode resize'  # Enter resize mode
 
-# MISCELLANEOUS COMMANDS
-alt-b = 'balance-sizes'
+cmd-h = 'focus left'  # Move focus to the left
+cmd-j = 'focus down'  # Move focus downward
+cmd-k = 'focus up'  # Move focus upward
+cmd-l = 'focus right'  # Move focus to the right
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#focus
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
+cmd-shift-h = 'move left'  # Move the window to the left
+cmd-shift-j = 'move down'  # Move the window downward
+cmd-shift-k = 'move up'  # Move the window upward
+cmd-shift-l = 'move right'  # Move the window to the right
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#move
-alt-shift-h = 'move left'
-alt-shift-j = 'move down'
-alt-shift-k = 'move up'
-alt-shift-l = 'move right'
+cmd-1 = 'workspace 1'  # Switch to workspace 1
+cmd-2 = 'workspace 2'  # Switch to workspace 2
+cmd-3 = 'workspace 3'  # Switch to workspace 3
+cmd-4 = 'workspace 4'  # Switch to workspace 4
+cmd-5 = 'workspace 5'  # Switch to workspace 5
+cmd-6 = 'workspace 6'  # Switch to workspace 6
+cmd-7 = 'workspace 7'  # Switch to workspace 7
+cmd-8 = 'workspace 8'  # Switch to workspace 8
+cmd-9 = 'workspace 9'  # Switch to workspace 9
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-shift-minus = 'resize smart -50'
-alt-shift-equal = 'resize smart +50'
+cmd-ctrl-1 = 'move-node-to-workspace 1'  # Move the window to workspace 1
+cmd-ctrl-2 = 'move-node-to-workspace 2'  # Move the window to workspace 2
+cmd-ctrl-3 = 'move-node-to-workspace 3'  # Move the window to workspace 3
+cmd-ctrl-4 = 'move-node-to-workspace 4'  # Move the window to workspace 4
+cmd-ctrl-5 = 'move-node-to-workspace 5'  # Move the window to workspace 5
+cmd-ctrl-6 = 'move-node-to-workspace 6'  # Move the window to workspace 6
+cmd-ctrl-7 = 'move-node-to-workspace 7'  # Move the window to workspace 7
+cmd-ctrl-8 = 'move-node-to-workspace 8'  # Move the window to workspace 8
+cmd-ctrl-9 = 'move-node-to-workspace 9'  # Move the window to workspace 9
+cmd-ctrl-0 = 'move-node-to-workspace 10'  # Move the window to workspace 10
 
-alt-shift-f = 'fullscreen'
+cmd-ctrl-1 = ['move-node-to-workspace 1', 'workspace 1']  # Move and switch to workspace 1
+cmd-ctrl-2 = ['move-node-to-workspace 2', 'workspace 2']  # Move and switch to workspace 2
+cmd-ctrl-3 = ['move-node-to-workspace 3', 'workspace 3']  # Move and switch to workspace 3
+cmd-ctrl-4 = ['move-node-to-workspace 4', 'workspace 4']  # Move and switch to workspace 4
+cmd-ctrl-5 = ['move-node-to-workspace 5', 'workspace 5']  # Move and switch to workspace 5
+cmd-ctrl-6 = ['move-node-to-workspace 6', 'workspace 6']  # Move and switch to workspace 6
+cmd-ctrl-7 = ['move-node-to-workspace 7', 'workspace 7']  # Move and switch to workspace 7
+cmd-ctrl-8 = ['move-node-to-workspace 8', 'workspace 8']  # Move and switch to workspace 8
+cmd-ctrl-9 = ['move-node-to-workspace 9', 'workspace 9']  # Move and switch to workspace 9
+cmd-ctrl-0 = ['move-node-to-workspace 10', 'workspace 10']  # Move and switch to workspace 10
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
+cmd-shift-minus = "resize smart -50"
+cmd-shift-equal = "resize smart +50"
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-cmd-ctrl-alt-shift-1 = 'move-node-to-workspace 1'
-cmd-ctrl-alt-shift-2 = 'move-node-to-workspace 2'
-cmd-ctrl-alt-shift-3 = 'move-node-to-workspace 3'
-cmd-ctrl-alt-shift-4 = 'move-node-to-workspace 4'
-cmd-ctrl-alt-shift-5 = 'move-node-to-workspace 5'
-cmd-ctrl-alt-shift-6 = 'move-node-to-workspace 6'
-cmd-ctrl-alt-shift-7 = 'move-node-to-workspace 7'
-cmd-ctrl-alt-shift-8 = 'move-node-to-workspace 8'
-cmd-ctrl-alt-shift-9 = 'move-node-to-workspace 9'
+alt-tab = 'workspace-back-and-forth'  # Switch to the last active workspace
 
-alt-f = 'fullscreen'
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-alt-tab = 'workspace-back-and-forth'
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-# alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
-
-# SERVICE MODE SERVICE MODE SERVICE MODEj
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#mode
-alt-shift-semicolon = 'mode service'
-
-# 'service' binding mode declaration.
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# Manage mode bindings
 [mode.service.binding]
-esc = ['reload-config', 'mode main']
-r = ['flatten-workspace-tree', 'mode main'] # reset layout
-# f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-# This is BROKEN for some reason
-backspace = ['close-all-windows-but-current', 'mode main']
+esc = ['reload config', 'mode main']  # Exit service mode
+enter = ['reload config', 'mode main']
 
-alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
-alt-shift-k = ['join-with up', 'mode main']
-alt-shift-l = ['join-with right', 'mode main']
+c = ['reload-config', 'mode main']  # Reload configuration and exit service mode
+r = ['flatten-workspace-tree', 'mode main']  # Flatten workspace hierarchy and exit service mode
+f = ['layout floating tiling', 'mode main']  # Toggle layout and exit service mode
+backspace = ['close-all-windows-but-current', 'mode main']  # Close all windows except the current one
+cmd-shift-h = ['join-with left', 'mode main']  # Join container with the one on the left
+cmd-shift-j = ['join-with down', 'mode main']  # Join container with the one below
+cmd-shift-k = ['join-with up', 'mode main']  # Join container with the one above
+cmd-shift-l = ['join-with right', 'mode main']  # Join container with the one on the right
 
-[[on-window-detected]]
-if.app-id = 'com.apple.finder'
-run = 'layout floating'
+# Resize mode bindings
+[mode.resize.binding]
+esc = 'mode main'  # Exit resize mode
+enter = 'mode main'  # Exit resize mode
+
+h = 'resize width -50'  # Decrease width by 50 units
+j = 'resize height +50'  # Increase height by 50 units
+k = 'resize height -50'  # Decrease height by 50 units
+l = 'resize width +50'  # Increase width by 50 units
